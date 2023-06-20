@@ -2,6 +2,7 @@ import React from 'react';
 import main from '../assets/images/main.svg';
 import styled from 'styled-components';
 import { Logo } from '../components';
+import { Link } from 'react-router-dom';
 
 const Landing = () => {
   return (
@@ -16,7 +17,9 @@ const Landing = () => {
             job <span>tracking</span> app
           </h1>
           <p> I'm a paragraph explaining the cool things we do at Jobify</p>
-          <button className="btn btn-hero">Login/Register</button>
+          <Link to="/register" className="btn btn-hero">
+            Login/Register
+          </Link>
         </div>
         {/*Large image that will disappear on certain sized*/}
         <img src={main} alt="job hunt" className="img main-img" />
