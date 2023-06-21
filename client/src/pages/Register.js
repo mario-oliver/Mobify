@@ -7,7 +7,7 @@ const initialState = {
   email: '',
   password: '',
   isMember: true,
-  showAlert: true,
+  showAlert: false,
 };
 
 const Register = () => {
@@ -25,24 +25,30 @@ const Register = () => {
     // setLoginValues(e.target.value);
   };
 
+  const toggleMember = () => {
+    setLoginValues({ ...loginValues, isMember: !loginValues.isMember });
+  };
+
   useEffect(() => {}, []);
 
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo></Logo>
-        <h3>Login</h3>
+        <h3>{loginValues.isMember ? 'Login' : 'Register'}</h3>
 
         {loginValues.showAlert && <Alert></Alert>}
 
         {/* name field */}
-        <FormRow
-          type={'text'}
-          name={'name'}
-          handleChange={handleChange}
-          value={loginValues.name}
-          labelText={'Name'}
-        />
+        {loginValues.isMember || (
+          <FormRow
+            type={'text'}
+            name={'name'}
+            handleChange={handleChange}
+            value={loginValues.name}
+            labelText={'Name'}
+          />
+        )}
         {/* email field */}
         <FormRow
           type={'email'}
@@ -63,6 +69,13 @@ const Register = () => {
         <button type="submit" className="btn btn-block">
           Submit
         </button>
+
+        <p>
+          {loginValues.isMember ? 'Not a member yet?' : 'Already a member?'}
+          <button type="button" onClick={toggleMember} className="member-btn">
+            {loginValues.isMember ? 'Register' : 'Login'}
+          </button>
+        </p>
       </form>
     </Wrapper>
   );
@@ -95,13 +108,13 @@ const Wrapper = styled.section`
     margin-top: 1rem;
   }
 
-  /* .member-btn {
+  .member-btn {
     background: transparent;
     border: transparent;
     color: var(--primary-500);
-    cursor: pointer;
+    /* cursor: pointer; */
     letter-spacing: var(--letterSpacing);
-  } */
+  }
 `;
 
 export default Register;
