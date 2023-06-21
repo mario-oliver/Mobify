@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Logo } from '../components';
+import { Logo, FormRow, Alert } from '../components';
 import styled from 'styled-components';
 
 const initialState = {
@@ -7,10 +7,12 @@ const initialState = {
   email: '',
   password: '',
   isMember: true,
+  showAlert: true,
 };
 
 const Register = () => {
-  const [values, setValues] = useState(initialState);
+  const [loginValues, setLoginValues] = useState(initialState);
+
   //global state and useNavigate
 
   const onSubmit = (e) => {
@@ -19,8 +21,11 @@ const Register = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target);
+    console.log(e.target.value);
+    // setLoginValues(e.target.value);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <Wrapper className="full-page">
@@ -28,17 +33,33 @@ const Register = () => {
         <Logo></Logo>
         <h3>Login</h3>
 
+        {loginValues.showAlert && <Alert></Alert>}
+
         {/* name field */}
-        <div className="form-row">
-          <label className="form-label">name</label>
-          <input
-            className="form-input"
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            type="text"
-          ></input>
-        </div>
+        <FormRow
+          type={'text'}
+          name={'name'}
+          handleChange={handleChange}
+          value={loginValues.name}
+          labelText={'Name'}
+        />
+        {/* email field */}
+        <FormRow
+          type={'email'}
+          name={'email'}
+          handleChange={handleChange}
+          value={loginValues.email}
+          labelText={'Email'}
+        />
+        {/* password field */}
+        <FormRow
+          type={'password'}
+          name={'password'}
+          handleChange={handleChange}
+          value={loginValues.password}
+          labelText={'Password'}
+        />
+
         <button type="submit" className="btn btn-block">
           Submit
         </button>
