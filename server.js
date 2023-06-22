@@ -8,4 +8,11 @@
 import express from 'express';
 const app = express();
 
-console.log('Server running...');
+app.get('/', (req, res) => {
+  res.send('Welcome');
+});
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  `Server is listening on port ${port}`;
+});
