@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Logo, FormRow, Alert } from '../components';
 import styled from 'styled-components';
+import { useAppContext } from '../context/appContext';
 
 const initialState = {
   name: '',
   email: '',
   password: '',
   isMember: true,
-  showAlert: false,
 };
 
 const Register = () => {
   const [loginValues, setLoginValues] = useState(initialState);
 
   //global state and useNavigate
+  const globalState = useAppContext();
+  const { isLoading, showAlert } = globalState;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ const Register = () => {
         <Logo></Logo>
         <h3>{loginValues.isMember ? 'Login' : 'Register'}</h3>
 
-        {loginValues.showAlert && <Alert></Alert>}
+        {showAlert && <Alert></Alert>}
 
         {/* name field */}
         {loginValues.isMember || (
