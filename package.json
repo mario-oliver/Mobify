@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "styled-components": "^6.0.0-rc.1"
-  }
+  },
+  "name": "mobify",
+  "description": "#### Track Your Job Search",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mario-oliver/Mobify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mario-oliver/Mobify/issues"
+  },
+  "homepage": "https://github.com/mario-oliver/Mobify#readme"
 }
