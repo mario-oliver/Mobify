@@ -15,16 +15,19 @@ const Register = () => {
 
   //global state and useNavigate
   const globalState = useAppContext();
-  const { isLoading, showAlert } = globalState;
+  const { isLoading, showAlert, displayAlert } = globalState;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = loginValues;
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    // setLoginValues(e.target.value);
+    setLoginValues({ ...loginValues, [e.target.name]: e.target.value });
   };
 
   const toggleMember = () => {
