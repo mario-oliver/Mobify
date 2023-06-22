@@ -1,5 +1,6 @@
-import { React, useContext, createContext, useState } from 'react';
-// import reducer from './reducer';
+import { React, useContext, createContext, useReducer } from 'react';
+import reducer from './reducer';
+import { DISPLAY_ALERT } from './actions';
 
 const initialState = {
   isLoading: false,
@@ -13,11 +14,17 @@ const AppContext = createContext();
 //use the context's provider
 //pass children so we can render the rest of the app when wrapping the app in global context component
 const AppProvider = ({ children }) => {
-  const [state, setState] = useState(initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const displayAlert = () => {
+    dispatch({ type: DISPLAY_ALERT });
+  };
 
   return (
     //value prop to set up any global values we want
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, displayAlert }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

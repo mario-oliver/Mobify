@@ -1,0 +1,3 @@
+export { DISPLAY_ALERT };
+
+const DISPLAY_ALERT = 'SHOW_ALERT';
