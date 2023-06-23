@@ -8,6 +8,8 @@
 import express from 'express';
 const app = express();
 
+import 'express-async-errors';
+
 //setup of env file
 import dotenv from 'dotenv';
 dotenv.config();
