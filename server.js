@@ -8,18 +8,29 @@
 import express from 'express';
 const app = express();
 
-import connectDB from './db/connect.js';
-
-import notFoundMiddleware from './middleware/note-found.js';
-import errorHandlerMiddleware from './middleware/error-handler.js';
-
+//setup of env file
 import dotenv from 'dotenv';
 dotenv.config();
 
+//db and authenticate user
+import connectDB from './db/connect.js';
+
+//routers
+import authRouter from './routes/authRoutes.js';
+
+//middleware setup
+import notFoundMiddleware from './middleware/note-found.js';
+import errorHandlerMiddleware from './middleware/error-handler.js';
+
+//middleware for accessing json within the post req
+app.use(express.json());
+
 app.get('/', (req, res) => {
-  throw new Error('error');
+  //   throw new Error('error');
   res.send('Welcome');
 });
+
+app.use('/api/v1/auth', authRouter);
 
 //middleware
 app.use(notFoundMiddleware).use(errorHandlerMiddleware);
