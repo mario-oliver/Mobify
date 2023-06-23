@@ -10,10 +10,19 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Register User",
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"mario\", \n\"password\":\"secret\", \n\"email\":\"mario@gmail.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{URL}}/auth/register",
 							"host": [
