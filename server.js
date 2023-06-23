@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/jobs', jobsRoutes);
 
 //middleware
 app.use(notFoundMiddleware).use(errorHandlerMiddleware);
