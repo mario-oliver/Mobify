@@ -17,12 +17,13 @@ import connectDB from './db/connect.js';
 
 //routers
 import authRouter from './routes/authRoutes.js';
+import jobsRoutes from './routes/jobsRoutes.js';
 
 //middleware setup
 import notFoundMiddleware from './middleware/note-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
-//middleware for accessing json within the post req
+//middleware for accessing json within the controllers (for post requests this is how that data is passed)
 app.use(express.json());
 
 app.get('/', (req, res) => {
