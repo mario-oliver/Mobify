@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -36,6 +37,24 @@ const UserSchema = new mongoose.Schema({
     maxLength: 20,
     default: 'DC',
   },
+});
+
+//set up our hashing function for passwords
+/**
+ * - import bcrypt from 'bcryptjs'
+- await genSalt(10)
+- await hash(password , salt)
+- await compare(requestPassword , currentPassword)
+- [mongoose middleware](https://mongoosejs.com/docs/middleware.html)
+- UserSchema.pre('save',async function(){
+  "this" points to instance created by UserSchema
+  })
+ */
+//'save' hook will get triggered only on Users.create() or Users.save()
+UserSchema.pre('save', async function () {
+  //generate salt - 10 is the number of rounds that is happening
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 export default mongoose.model('User', UserSchema);
