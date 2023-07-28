@@ -41,10 +41,6 @@ const UserSchema = new mongoose.Schema({
 
 //set up our hashing function for passwords
 /**
- * - import bcrypt from 'bcryptjs'
-- await genSalt(10)
-- await hash(password , salt)
-- await compare(requestPassword , currentPassword)
 - [mongoose middleware](https://mongoosejs.com/docs/middleware.html)
 - UserSchema.pre('save',async function(){
   "this" points to instance created by UserSchema
@@ -56,5 +52,9 @@ UserSchema.pre('save', async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+UserSchema.methods.createJWT = function () {
+  console.log(this);
+};
 
 export default mongoose.model('User', UserSchema);
