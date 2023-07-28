@@ -11,10 +11,12 @@ const register = async (req, res, next) => {
   /**
    * Error with duplicate email code
    */
-  User.findOne({ email }).then((docs) => {
-    console.log('Result :', docs);
-    if (docs !== null) throw new BadRequestError('Email is already in use');
-  });
+  // User.findOne({ email }).then((docs) => {
+  //   console.log('Result :', docs.email, 'email', email);
+  //   if (docs.email === email) {
+  //     throw new BadRequestError('Email is already in use');
+  //   }
+  // });
 
   const user = await User.create({ name, email, password });
   user.createJWT();
