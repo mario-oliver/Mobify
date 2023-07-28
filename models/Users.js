@@ -58,7 +58,9 @@ UserSchema.methods.createJWT = function () {
   //remember "this" points to the current User doc that the schema produces
   // "_id" is the mongoose doc's id for this specific user
   //jwt.sign(payload,secret,options)
-  return jwt.sign({ userId: this._id }, 'placeholder', { expiresIn: '1d' });
+  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_LIFETIME,
+  });
 };
 
 export default mongoose.model('User', UserSchema);

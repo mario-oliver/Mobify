@@ -20,7 +20,16 @@ const register = async (req, res, next) => {
 
   const user = await User.create({ name, email, password });
   const token = user.createJWT();
-  res.status(StatusCodes.CREATED).json({ user, token });
+  res.status(StatusCodes.CREATED).json({
+    user: {
+      name: user.name,
+      lastName: user.lastName,
+      location: user.location,
+      email: user.email,
+    },
+    token,
+    location: user.location,
+  });
   /**
    * removed try catch
    * import 'express-async-errors' allows us to do this behind the scene with their package piping
