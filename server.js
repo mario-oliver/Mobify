@@ -45,9 +45,7 @@ console.log(`db string ${db_url}`);
 
 const start = async () => {
   try {
-    //need to switch db_url to work with the dotenv file (port is also not working)
-    //TODO: once fixed, correct the gitignore to allow /db to be pushed to git
-    await connectDB();
+    await connectDB(db_url);
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}...`);
     });

@@ -117,7 +117,7 @@ const Wrapper = styled.section`
     background: transparent;
     border: transparent;
     color: var(--primary-500);
-    /* cursor: pointer; */
+    cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }
 `;
