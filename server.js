@@ -28,9 +28,9 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 //middleware for accessing json within the controllers (for post requests this is how that data is passed)
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
   //   throw new Error('error');
-  res.send('Welcome');
+  res.json({ msg: 'Welcome' });
 });
 
 app.use('/api/v1/auth', authRouter);
