@@ -1631,6 +1631,8 @@ npm install concurrently --save-dev
 // --prefix client - folder
 // cd client && npm start
 // escape quotes
+// --ignore client is for nodemon --> nodemon restarts the server every time that a change happens in our server code --> this is a development feature (why we added nodemon) --> it comes with some issues now that we are running both client and server in one command
+// we add --ignore client so that the two dev environments are rendered or restarted separately
 
 "scripts": {
     "server": "nodemon server --ignore client",

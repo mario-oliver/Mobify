@@ -81,6 +81,77 @@ sudo systemctl start nginx
 #visit for more details
 sudo mkdir /etc/nginx/sites-available
 sudo mkdir /etc/nginx/sites-enabled
+
+######REMOVED THESE THREE STEPS AND REPLACED WITH BELOW
 sudo nano /etc/nginx/nginx.conf
 #enter -> include /etc/nginx/sites-enabled/*; -> into http block
 sudo ln -s /etc/nginx/sites-available/test.conf /etc/nginx/sites-enabled/test.conf
+#######
+
+sudo nano sites-available/MyApp.conf
+server {
+        listen 80;
+        listen [::]:80;
+        server_name 52.87.246.23;
+
+        location / {
+                include proxy_params;
+                proxy_pass http://localhost:5173;
+        }
+}
+sudo ln /etc/nginx/sites-available/MyApp.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx.service 
+
+#other attempt with a different structure in linux (rather than bandaid fix to make our linux work like ubuntu with syslink of folders)
+sudo mkdir /var/www
+sudo mkdir /var/www/52.87.246.23
+#makes the contents of the directory available to everyone
+sudo chmod 755 -R /var/www/52.87.246.2
+
+cd /etc/nginx/sites-available/
+sudo touch 52.87.246.23
+sudo nano 52.87.246.23
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/52.87.246.23;
+        index index.html;
+}
+#unlink whatever was here so we can do new link
+sudo unlink /etc/nginx/sites-enabled/<default>
+sudo ln /etc/nginx/sites-available/52.87.246.23 /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+
+cd 
+cd mario-porfolio
+npm run dev
+sudo mv dist/ /var/www/52.87.246.23
+sudo mv dist/logo.svg .
+sudo mv dist/vite.svg .
+sudo mv dist/index.html .
+sudo mv dist/assets/ .
+sudo rm -rf dist/
+
+#also did not work
+# the current /etc/nginx/ directory has two folders:
+# 1) nginx.conf.default and 2)  nginx.conf
+# in nginx.conf the server code looks as follows
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+        error_page 404 /404.html;
+        location = /404.html {}
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {}
+    }
+    #let's use this structure to move all build files into /usr/share/nginx/html
+    #this did finally work!!!!
+    #will need to use the /usr/share/nginx/html folder for my built files
