@@ -63,4 +63,12 @@ UserSchema.methods.createJWT = function () {
   });
 };
 
+UserSchema.methods.comparePasswords = async function (candidatePassword) {
+  //remember "this" points to the current User doc that the schema produces
+  //this.password is the hashed password
+  //candidatePassword is the password that the user is trying to login with
+  //bcrypt.compare(plainTextPassword,hashedPassword)
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
 export default mongoose.model('User', UserSchema);

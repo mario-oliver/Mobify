@@ -36,7 +36,27 @@ const register = async (req, res, next) => {
    */
 };
 const login = async (req, res) => {
-  res.send('login');
+  const { email, password } = req.body;
+  if (!email || !password)
+    throw new BadRequestError('Please provide email and password');
+  //our user object does not have a password object, so we need to add it with select + password
+  const user = await User.findOne({ email }).select('+password');
+  if (!user) throw new UnauthorizedError('Invalid credentials');
+
+  const isPasswordCorrect = await user.comparePasswords(password);
+  if (!isPasswordCorrect) throw new UnauthorizedError('Invalid credentials');
+
+  const token = user.createJWT();
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: user.name,
+      lastName: user.lastName,
+      location: user.location,
+      email: user.email,
+    },
+    token,
+    location: user.location,
+  });
 };
 const updateUser = async (req, res) => {
   res.send('updateUser');

@@ -25,13 +25,13 @@ import jobsRoutes from './routes/jobsRoutes.js';
 import notFoundMiddleware from './middleware/note-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
+import morgan from 'morgan';
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
+
 //middleware for accessing json within the controllers (for post requests this is how that data is passed)
 app.use(express.json());
-
-app.get('/api/v1', (req, res) => {
-  //   throw new Error('error');
-  res.json({ msg: 'Welcome' });
-});
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', jobsRoutes);
