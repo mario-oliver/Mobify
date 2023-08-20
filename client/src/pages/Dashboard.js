@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  return <div>Dashboard</div>;
+  return <div>ROI Calculator</div>;
 };
 
 export default Dashboard;

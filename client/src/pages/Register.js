@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Logo, FormRow, Alert } from '../components';
 import styled from 'styled-components';
 import { useAppContext } from '../context/appContext';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   name: '',
@@ -15,7 +16,10 @@ const Register = () => {
 
   //global state and useNavigate
   const globalState = useAppContext();
-  const { isLoading, showAlert, displayAlert } = globalState;
+  const navigate = useNavigate();
+
+  const { isLoading, showAlert, displayAlert, registerUser, user } =
+    globalState;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +28,21 @@ const Register = () => {
       displayAlert();
       return;
     }
+    const currentUser = { name, email, password };
+    if (isMember) {
+      console.log('already a member');
+    } else {
+      registerUser(currentUser);
+    }
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     setLoginValues({ ...loginValues, [e.target.name]: e.target.value });
@@ -71,7 +89,7 @@ const Register = () => {
           labelText={'Password'}
         />
 
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           Submit
         </button>
 

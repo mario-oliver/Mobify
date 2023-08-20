@@ -46,6 +46,7 @@ console.log(`db string ${db_url}`);
 const start = async () => {
   try {
     await connectDB(db_url);
+
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}...`);
     });
